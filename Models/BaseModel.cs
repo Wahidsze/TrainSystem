@@ -1,6 +1,10 @@
-﻿namespace TrainSystem.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+namespace TrainSystem.Models
 {
-	public class BaseModel
+    [PrimaryKey(nameof(Id))]
+    public class BaseModel
 	{
 		public Guid Id { get; set; }
 	}

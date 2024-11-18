@@ -16,8 +16,9 @@ namespace TrainSystem
             services.AddDbContext<ApplicationContext>(options =>
             {
                 options.UseSqlServer(connection);
-            });    
+            });
             services.AddMvc();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

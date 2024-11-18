@@ -1,4 +1,6 @@
-﻿using TrainSystem.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using TrainSystem.Models;
 
 namespace TrainSystem.Repositories
 {
@@ -8,5 +10,7 @@ namespace TrainSystem.Repositories
 		public DbModel GetById(Guid id);
 		public DbModel Update(DbModel model);
 		public void DeleteById(DbModel model);
-	}
+		public DbModel Create(DbModel model);
+		public DbSet<DbModel> GetSet();
+    }
 }
