@@ -3,6 +3,7 @@ using TrainSystem.Database;
 
 namespace TrainSystem.Repositories
 {
+	//Работа с базами данных
 	public class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
 	{
 		private ApplicationContext _context { get; set; }
@@ -34,5 +35,11 @@ namespace TrainSystem.Repositories
 			_context.Set<DbModel>().Remove(model);
 			_context.SaveChanges();
 		}
+		public DbModel Create(DbModel model)
+		{
+			_context.Set<DbModel>().Add(model);
+            _context.SaveChanges();
+			return model;
+        }
     }
 }

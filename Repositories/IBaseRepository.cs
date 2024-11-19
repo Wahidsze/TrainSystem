@@ -8,5 +8,6 @@ namespace TrainSystem.Repositories
 		public DbModel GetById(Guid id);
 		public DbModel Update(DbModel model);
 		public void DeleteById(DbModel model);
+		public DbModel Create(DbModel model);
 	}
 }

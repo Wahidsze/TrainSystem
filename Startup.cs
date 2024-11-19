@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TrainSystem.Database;
 
+
 namespace TrainSystem
 {
     public class Startup
@@ -16,7 +17,7 @@ namespace TrainSystem
             services.AddDbContext<ApplicationContext>(options =>
             {
                 options.UseSqlServer(connection);
-            });    
+            });
             services.AddMvc();
         }
 
