@@ -46,11 +46,5 @@ namespace TrainSystem.Repositories
 		{
 			return _context.Set<DbModel>();
 		}
-		public DbModel Create(DbModel model)
-		{
-			_context.Set<DbModel>().Add(model);
-            _context.SaveChanges();
-			return model;
-        }
     }
 }
