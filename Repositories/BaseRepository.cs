@@ -1,5 +1,6 @@
 ﻿using TrainSystem.Models;
 using TrainSystem.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrainSystem.Repositories
 {
@@ -34,6 +35,16 @@ namespace TrainSystem.Repositories
 		{
 			_context.Set<DbModel>().Remove(model);
 			_context.SaveChanges();
+		}
+        public DbModel Create(DbModel model)
+        {
+            _context.Set<DbModel>().Add(model);
+            _context.SaveChanges();
+            return model;
+        }
+		public DbSet<DbModel> GetSet()
+		{
+			return _context.Set<DbModel>();
 		}
 		public DbModel Create(DbModel model)
 		{

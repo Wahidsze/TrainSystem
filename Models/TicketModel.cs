@@ -2,7 +2,10 @@
 {
 	public class TicketModel : BaseModel
 	{
-		public DateTime Date { get; set; }
-		public String City { get; set; }
-	}
+		public Guid RouteId { get; set; }
+		public Guid DateId { get; set; }
+		public Guid TrainId { get; set; }
+		public Guid PlaceId { get; set; }
+        public float Cost { get; set; }
+    }
 }

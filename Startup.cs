@@ -19,6 +19,7 @@ namespace TrainSystem
                 options.UseSqlServer(connection);
             });
             services.AddMvc();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
