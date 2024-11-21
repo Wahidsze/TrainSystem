@@ -40,11 +40,10 @@ namespace TrainSystem.Services
                     .SetDate(ticket.Key.DateId)
                     .SetRoute(ticket.Key.RouteId)
                     .SetTrain(ticket.Key.TrainId)
-                    .SetWagons(ticket.Select(t =>t.PlaceId).ToList())
+                    .SetWagons(ticket.Select(t =>t.Id).ToList())
                     .Build());
             }
             return result;
-            //shaurmommy and shaurdaddy return shaurson
         }
 
 

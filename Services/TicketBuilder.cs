@@ -14,10 +14,11 @@ namespace TrainSystem.Services
         private IBaseRepository<WagonModel> _wagons { get; set; }
         private IBaseRepository<DateModel> _dates{ get; set; }
         private IBaseRepository<RouteModel> _routes { get; set; }
+        private IBaseRepository<TicketModel> _tickets { get; set; }
         public TicketBuilder()
         {
             _target = new TicketViewModel();
-            _builder = new WagonBuilder();
+            //_builder = new WagonBuilder();
         }
         public TicketViewModel Build()
         {
@@ -39,16 +40,18 @@ namespace TrainSystem.Services
             _target.PointEnd = route.PointEnd;
             return this;
         }
-        public ITicketBuilder SetWagons(List<Guid> PlacesId)
+        public ITicketBuilder SetWagons(List<Guid> TicketsId)
         {
-            var places = _places.GetSet().Where(p => PlacesId.Contains(p.Id));
-            var wagons = places.GroupBy(p => p.WagonId);
+            var tickets = _tickets.GetSet()
+                .Where(t => TicketsId.Contains(t.Id))
+                .Join(_places.GetSet(), t => t.PlaceId, p => p.Id, (t, p) => new {t.Id, t.PlaceId, p.WagonId});
+            var wagons = tickets.GroupBy(t => t.WagonId);
             List<WagonViewModel> result = new List<WagonViewModel>();
             foreach (var wagon in wagons)
             {
                 result.Append(_builder
                     .SetNameAndType(wagon.Key)
-                    .SetPlace(wagon.Select(w => w.Id).ToList())
+                    .SetPlace(wagon.Select(w => new PlaceAndTicketId {TicketId=w.Id, PlaceId=w.PlaceId}).ToList())
                     .SetConditions(wagon.Key)
                     .Build());
             }
@@ -62,6 +65,5 @@ namespace TrainSystem.Services
             _target.TrainType = train.TrainType;
             return this;
         }
-
     }
 }

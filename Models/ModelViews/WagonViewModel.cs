@@ -1,12 +1,5 @@
 ﻿namespace TrainSystem.Models.ModelViews
 {
-    public enum Condition
-    {
-        BioToilet,
-        AllowPets,
-        Conditioner
-
-    }
     public class WagonViewModel
     {
         public String WagonName { get; set; }

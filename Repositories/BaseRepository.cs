@@ -18,7 +18,7 @@ namespace TrainSystem.Repositories
 		}
         public DbModel GetById(Guid Id)
 		{
-			return _context.Set<DbModel>().FirstOrDefault(t => t.Id == Id);
+			return _context.Set<DbModel>().FirstOrDefault(t => t.Id == Id, null);
 		}
         public DbModel Update(DbModel model)
 		{
