@@ -2,6 +2,7 @@
 {
     public class PlaceViewModel
     {
-        public bool IsOccupied { get; set; }
+        public Guid WagonId { get; set; }
+        public String PlaceName { get; set; }
     }
 }
