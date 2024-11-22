@@ -1,7 +1,7 @@
 ﻿using TrainSystem.Repositories;
-using TrainSystem.Models;
 using TrainSystem.Models.ModelViews;
 using Microsoft.IdentityModel.Tokens;
+using TrainSystem.Models.ModelDatabase;
 
 namespace TrainSystem.Services
 {
@@ -11,9 +11,11 @@ namespace TrainSystem.Services
         private IBaseRepository<RouteModel> _routes { get; set; }
         private IBaseRepository<DateModel> _dates { get; set; }
         private IBaseRepository<TicketModel> _tickets { get; set; }
-        public TicketService()
+        private TicketRepository _repository { get; set; }
+        public TicketService(TicketRepository repository)
         {
-            _builder = new TicketBuilder();
+            _repository = repository;
+            _builder = new TicketBuilder(_repository);
         }
         public List<RouteModel> GetAllCities() 
         {

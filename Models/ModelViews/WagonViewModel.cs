@@ -1,4 +1,6 @@
-﻿namespace TrainSystem.Models.ModelViews
+﻿using TrainSystem.Models.ModelDatabase;
+
+namespace TrainSystem.Models.ModelViews
 {
     public class WagonViewModel
     {

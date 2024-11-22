@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
-using TrainSystem.Models;
+using TrainSystem.Models.ModelDatabase;
 
 namespace TrainSystem.Repositories
 {
-	public interface IBaseRepository<DbModel> where DbModel : BaseModel
+    public interface IBaseRepository<DbModel> where DbModel : BaseModel
 	{
 		public List<DbModel> GetAll();
 		public DbModel GetById(Guid id);

@@ -1,11 +1,10 @@
-﻿using TrainSystem.Models;
-using TrainSystem.Database;
+﻿using TrainSystem.Database;
 using Microsoft.EntityFrameworkCore;
+using TrainSystem.Models.ModelDatabase;
 
 namespace TrainSystem.Repositories
 {
-	//Работа с базами данных
-	public class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
+    public class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
 	{
 		private ApplicationContext _context { get; set; }
 		public BaseRepository(ApplicationContext context)

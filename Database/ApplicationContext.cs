@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrainSystem.Models;
+using TrainSystem.Models.ModelDatabase;
 
 namespace TrainSystem.Database
 {
-	public class ApplicationContext : DbContext 
+    public class ApplicationContext : DbContext 
 	{
         public ApplicationContext()
         {

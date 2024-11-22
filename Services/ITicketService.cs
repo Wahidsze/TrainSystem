@@ -1,4 +1,4 @@
-﻿using TrainSystem.Models;
+﻿using TrainSystem.Models.ModelDatabase;
 using TrainSystem.Models.ModelViews;
 namespace TrainSystem.Services
 {

@@ -1,4 +1,4 @@
-﻿namespace TrainSystem.Models
+﻿namespace TrainSystem.Models.ModelDatabase
 {
     public enum Condition
     {

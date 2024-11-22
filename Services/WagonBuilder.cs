@@ -7,21 +7,11 @@ namespace TrainSystem.Services
     public class WagonBuilder : IWagonBuilder
     {
         private WagonViewModel _target { get; set; }
-        private IBaseRepository<PlaceModel> _places { get; set; }
-        private IBaseRepository<WagonModel> _wagons { get; set; }
-        private IBaseRepository<ConditionModel> _conditions { get; set; }
-        private IBaseRepository<WagonConditionModel> _wagonConditions { get; set; }
-        private IBaseRepository<UserTicketModel> _userTickets { get; set; }
-        public WagonBuilder(IBaseRepository<PlaceModel> places, IBaseRepository<WagonModel> wagons,
-            IBaseRepository<ConditionModel> conditions, IBaseRepository<WagonConditionModel> wagonConditions,
-            IBaseRepository<UserTicketModel> userTicket)
+        private TicketRepository _repository { get; set; }
+        public WagonBuilder(TicketRepository repository)
         {
-            _places = places;
-            _wagons = wagons;
-            _conditions = conditions;
-            _wagonConditions = wagonConditions;
-            _userTickets = userTicket;
             _target = new WagonViewModel();
+            _repository = repository;
         }
         public WagonViewModel Build()
         {
@@ -31,7 +21,7 @@ namespace TrainSystem.Services
         }
         public IWagonBuilder SetNameAndType(Guid WagonId)
         {
-            var wagon = _wagons.GetById(WagonId);
+            var wagon = _repository.GetWagonById(WagonId);
             _target.WagonName = wagon.WagonName;
             _target.WagonType = wagon.WagonType;
             return this;
@@ -41,8 +31,8 @@ namespace TrainSystem.Services
             List<PlaceViewModel> places = new List<PlaceViewModel>(); 
             foreach(var obj in PlaceAndTicketId)
             {
-                String name = _places.GetById(obj.PlaceId).PlaceName;
-                bool isOccupied = _userTickets.GetById(obj.TicketId) != null;
+                String name = _repository.GetPlaceById(obj.PlaceId).PlaceName;
+                bool isOccupied = _repository.GetUserTicketById(obj.TicketId) != null;
                 places.Add(new PlaceViewModel {PlaceName=name, IsOccupied=isOccupied });
             }
             _target.WagonPlacements = places;
@@ -50,10 +40,7 @@ namespace TrainSystem.Services
         }
         public IWagonBuilder SetConditions(Guid WagonId)
         {
-            var wagonConditions = _wagonConditions.GetSet()
-                .Where(wc => wc.WagonId == WagonId)
-                .Join(_conditions.GetSet(), w => w.ConditionId, c => c.Id, (w,c) => c.ConditionName).ToList();
-            _target.WagonConditions = wagonConditions;
+            _target.WagonConditions = _repository.GetConditionsById(WagonId);
             return this;
         }
     }
