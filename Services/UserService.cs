@@ -8,7 +8,7 @@ using TrainSystem.Repositories;
 
 namespace TrainSystem.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IUserRepository _users { get; set; }
         public UserService(ApplicationContext context) 

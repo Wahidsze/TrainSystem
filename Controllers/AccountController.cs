@@ -12,7 +12,7 @@ namespace TrainSystem.Controllers
     public class AccountController : Controller
     {
         private ApplicationContext _context { get; set; }
-        private UserService _service { get; set; }
+        private IUserService _service { get; set; }
         public AccountController(ApplicationContext context) 
         {
             _context = context;
