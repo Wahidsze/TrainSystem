@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using TrainSystem.Database;
-
 
 namespace TrainSystem
 {
@@ -18,8 +18,12 @@ namespace TrainSystem
             {
                 options.UseSqlServer(connection);
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Account/Login");
+                });
             services.AddMvc();
-
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -29,7 +33,12 @@ namespace TrainSystem
             }
             app.UseHttpsRedirection();
             app.UseFileServer();
+
             app.UseRouting();
+
+            app.UseAuthentication();    
+            app.UseAuthorization();     
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

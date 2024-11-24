@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
+using System.Linq.Expressions;
 using TrainSystem.Models.ModelDatabase;
 
 namespace TrainSystem.Repositories
@@ -8,6 +8,7 @@ namespace TrainSystem.Repositories
 	{
 		public List<DbModel> GetAll();
 		public DbModel GetById(Guid id);
+		public Task<DbModel> GetByAttribute(Expression<Func<DbModel, bool>> predicate);
 		public DbModel Update(DbModel model);
 		public void DeleteById(DbModel model);
 		public DbModel Create(DbModel model);

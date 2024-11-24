@@ -3,8 +3,8 @@ using TrainSystem.Models.ModelDatabase;
 
 namespace TrainSystem.Database
 {
-    public class ApplicationContext : DbContext 
-	{
+    public class ApplicationContext : DbContext
+    {
 		public virtual DbSet<TicketModel> Tickets { get; set; }
         public virtual DbSet<ConditionModel> Conditions { get; set; }
         public virtual DbSet<RouteModel> Routes { get; set; }
