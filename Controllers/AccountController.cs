@@ -5,7 +5,6 @@ using System.Security.Claims;
 using TrainSystem.Database;
 using TrainSystem.Models.ModelViews;
 using TrainSystem.Services;
-using static System.Net.WebRequestMethods;
 
 namespace TrainSystem.Controllers
 {

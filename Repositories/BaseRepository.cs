@@ -24,7 +24,11 @@ namespace TrainSystem.Repositories
         {
             return await _context.Set<DbModel>().FirstOrDefaultAsync(predicate);
         }
-        public DbModel Update(DbModel model)
+		public IQueryable<DbModel> Where(Expression<Func<DbModel, bool>> predicate)
+		{
+			return  _context.Set<DbModel>().Where(predicate);
+		}
+		public DbModel Update(DbModel model)
 		{
 			var toUpdate = _context.Set<DbModel>().FirstOrDefault(t => t.Id == model.Id);
 			if (toUpdate != null)
