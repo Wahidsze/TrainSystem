@@ -1,4 +1,5 @@
-﻿using TrainSystem.Database;
+﻿using System.Reflection;
+using TrainSystem.Database;
 using TrainSystem.Models.ModelDatabase;
 
 namespace TrainSystem.Repositories
@@ -9,7 +10,13 @@ namespace TrainSystem.Repositories
         public Guid PlaceId { get; set; }
         public Guid WagonId { get; set; }
     }
-    public class TicketRepository : ITicketRepository
+	public class TicketInfo
+	{
+		public Guid TrainId { get; set; }
+		public Guid DateId { get; set; }
+		public Guid RouteId { get; set; }
+	}
+	public class TicketRepository : ITicketRepository
     {
         private IBaseRepository<PlaceModel> _places { get; set; }
         private IBaseRepository<WagonModel> _wagons { get; set; }
@@ -32,7 +39,11 @@ namespace TrainSystem.Repositories
             _trains = new BaseRepository<TrainModel>(context);
             _routes = new BaseRepository<RouteModel>(context);
         }
-        public WagonModel GetWagonById(Guid wagonId)
+		public List<RouteModel> GetAllRoute()
+        {
+            return _routes.GetAll();
+        }
+		public WagonModel GetWagonById(Guid wagonId)
         {
             return _wagons.GetById(wagonId);
         }
@@ -46,7 +57,7 @@ namespace TrainSystem.Repositories
         }
         public List<Condition> GetConditionsById(Guid wagonId)
         {
-            var result = _wagonConditions.GetSet()
+            var result = _wagonConditions
                 .Where(wc => wc.WagonId == wagonId)
                 .Join(_conditions.GetSet(), w => w.ConditionId, c => c.Id, (w, c) => c.ConditionName).ToList();
             return result;
@@ -59,21 +70,25 @@ namespace TrainSystem.Repositories
         {
             return _routes.GetById(routeId);
         }
-        public IQueryable<IGrouping<Guid, WagonInfo>> GroupingPlacesByWagons(List<Guid> TicketsId)
+		public TrainModel GetTrainById(Guid trainId)
+		{
+			return _trains.GetById(trainId);
+		}
+		public IQueryable<IGrouping<Guid, WagonInfo>> GroupingPlacesByWagons(List<Guid> TicketsId)
         {
-            var tickets = _tickets.GetSet()
+            var tickets = _tickets
                 .Where(t => TicketsId.Contains(t.Id))
-                .Join(_places.GetSet(), t => t.PlaceId, p => p.Id, (t, p) => new WagonInfo
-                { 
-                    TicketId = t.Id, 
-                    PlaceId=t.PlaceId, 
-                    WagonId=p.WagonId 
-                });
+                .Join(_places.GetSet(), t => t.PlaceId, p => p.Id, (t, p) => new WagonInfo {TicketId=t.Id, PlaceId=t.PlaceId, WagonId=p.WagonId});
             return tickets.GroupBy(t => t.WagonId);
         }
-        public TrainModel GetTrainById(Guid trainId)
+        public IQueryable<IGrouping<TicketInfo, TicketModel>> GroupingTicketsByTrain(DateTime DateStart, String PointStart, String PointEnd)
         {
-            return _trains.GetById(trainId);
-        }
-    }
+			var route = _routes.Where(r => r.PointStart == PointStart && r.PointEnd == PointEnd);
+			var dates = _dates.Where(d => d.DateStart == DateStart);
+            var tickets = _tickets
+                .Where(t => route.Any(r => r.Id == t.RouteId) && dates.Any(d => d.Id == t.DateId))
+                .GroupBy(t => new TicketInfo {TrainId=t.TrainId, DateId=t.DateId, RouteId=t.RouteId});
+            return tickets;
+		}
+	}
 }
