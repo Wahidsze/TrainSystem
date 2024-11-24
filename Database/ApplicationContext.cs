@@ -5,10 +5,6 @@ namespace TrainSystem.Database
 {
     public class ApplicationContext : DbContext 
 	{
-        public ApplicationContext()
-        {
-
-        }
 		public virtual DbSet<TicketModel> Tickets { get; set; }
         public virtual DbSet<ConditionModel> Conditions { get; set; }
         public virtual DbSet<RouteModel> Routes { get; set; }
@@ -19,10 +15,10 @@ namespace TrainSystem.Database
         public virtual DbSet<WagonModel> Wagons { get; set; }
         public virtual DbSet<UserTicketModel> UserTickets { get; set; }
         public virtual DbSet<WagonConditionModel> WagonConditions { get; set; }
-
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
 		{
 			Database.EnsureCreated();
 		}
+        public ApplicationContext() { }
     }
 }

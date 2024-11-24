@@ -40,7 +40,7 @@ namespace TrainSystem.Tests
         {
             return new List<WagonModel>
             {
-                new WagonModel{Id=Utility.ToGuid(1),WagonName="TestName",WagonType="TestType"}
+                new WagonModel{Id=Utility.ToGuid(1),WagonName="TestName1",WagonType="TestType"}
             };
         }
         public static List<ConditionModel> GetConditionsData()

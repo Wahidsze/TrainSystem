@@ -9,7 +9,11 @@ namespace TrainSystem.Repositories
         public Guid PlaceId { get; set; }
         public Guid WagonId { get; set; }
     }
-    public class TicketRepository
+    public class TicketInfo
+    {
+        public Guid TrainId { get; set; }
+    }
+    public class TicketRepository : ITicketRepository
     {
         private IBaseRepository<PlaceModel> _places { get; set; }
         private IBaseRepository<WagonModel> _wagons { get; set; }
