@@ -27,7 +27,7 @@ namespace TrainSystem.Tests.ServicesTests
             _userTicketRepository = new BaseRepository<UserTicketModel>(_applicationContext._mockContext.Object);
         }
         [Fact]
-        public void SetNameAndTypeTests()
+        public void BuildCreateWagonViewModelTests()
         {
 
             WagonViewModel target = new WagonViewModel
