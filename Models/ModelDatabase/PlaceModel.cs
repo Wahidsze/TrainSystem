@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace TrainSystem.Models
+namespace TrainSystem.Models.ModelDatabase
 {
     public class PlaceModel : BaseModel
     {
         public Guid WagonId { get; set; }
-        public String PlaceName { get; set; }
+        public string PlaceName { get; set; }
     }
 }

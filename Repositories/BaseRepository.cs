@@ -1,11 +1,11 @@
-﻿using TrainSystem.Models;
-using TrainSystem.Database;
+﻿using TrainSystem.Database;
 using Microsoft.EntityFrameworkCore;
+using TrainSystem.Models.ModelDatabase;
+using System.Linq.Expressions;
 
 namespace TrainSystem.Repositories
 {
-	//Работа с базами данных
-	public class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
+    public class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
 	{
 		private ApplicationContext _context { get; set; }
 		public BaseRepository(ApplicationContext context)
@@ -20,7 +20,15 @@ namespace TrainSystem.Repositories
 		{
 			return _context.Set<DbModel>().FirstOrDefault(t => t.Id == Id, null);
 		}
-        public DbModel Update(DbModel model)
+        public async Task<DbModel> GetByAttribute(Expression<Func<DbModel, bool>> predicate)
+        {
+            return await _context.Set<DbModel>().FirstOrDefaultAsync(predicate);
+        }
+		public IQueryable<DbModel> Where(Expression<Func<DbModel, bool>> predicate)
+		{
+			return  _context.Set<DbModel>().Where(predicate);
+		}
+		public DbModel Update(DbModel model)
 		{
 			var toUpdate = _context.Set<DbModel>().FirstOrDefault(t => t.Id == model.Id);
 			if (toUpdate != null)
@@ -38,7 +46,7 @@ namespace TrainSystem.Repositories
 		}
         public DbModel Create(DbModel model)
         {
-            _context.Set<DbModel>().Add(model);
+            _context.Set<DbModel>().AddAsync(model);
             _context.SaveChanges();
             return model;
         }
