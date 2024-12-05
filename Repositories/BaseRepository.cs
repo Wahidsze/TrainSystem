@@ -54,5 +54,9 @@ namespace TrainSystem.Repositories
 		{
 			return _context.Set<DbModel>();
 		}
+		public IQueryable<DbModel> Select(Expression<Func<DbModel, int, DbModel>> predicate)
+		{
+			return _context.Set<DbModel>().Select(predicate);
+		}
     }
 }

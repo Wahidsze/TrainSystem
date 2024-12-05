@@ -13,7 +13,7 @@ namespace TrainSystem.Repositories
         public RouteModel GetRouteById(Guid routeId);
 		public TrainModel GetTrainById(Guid trainId);
 		public IQueryable<IGrouping<Guid, WagonInfo>> GroupingPlacesByWagons(List<Guid> TicketsId);
-        public IQueryable<IGrouping<TicketInfo, TicketModel>> GroupingTicketsByTrain(DateTime DateStart, String PointStart, String PointEnd);
+        public IQueryable<TicketInfo> GroupingTicketsByTrain(DateTime DateStart, String PointStart, String PointEnd);
     }
 }
     

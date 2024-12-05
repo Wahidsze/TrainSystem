@@ -40,7 +40,7 @@ namespace TrainSystem.Tests
         {
             return new List<WagonModel>
             {
-                new WagonModel{Id=Utility.ToGuid(1),WagonName="TestName1",WagonType="TestType"}
+                new WagonModel{Id=Utility.ToGuid(1),WagonName="TestName",WagonType="TestType"}
             };
         }
         public static List<ConditionModel> GetConditionsData()
@@ -73,7 +73,7 @@ namespace TrainSystem.Tests
         {
             return new List<UserModel>
             {
-                new UserModel{Id=Utility.ToGuid(1), Email="maxim@example.com", Password="Password123", FamilyName="Андронов", Name="Максим", Surname="Дмитриевич"},
+                new UserModel{Id=Utility.ToGuid(1), Email="andronov@example.com", Password="Password123", FamilyName="Андронов", Name="Максим", Surname="Дмитриевич"},
                 new UserModel{Id=Utility.ToGuid(2), Email="rusanov@example.com", Password="Securepassword", FamilyName="Русанов", Name="Александр", Surname="Антонович"},
                 new UserModel{Id=Utility.ToGuid(3), Email="sobakin@example.com", Password="Mypassword", FamilyName="Собакин", Name="Дмитрий", Surname="Александрович"}
             };
@@ -82,21 +82,49 @@ namespace TrainSystem.Tests
         {
             return new List<TrainModel>
             {
-                new TrainModel{Id = Utility.ToGuid(1),TrainName = "Express 1",TrainType="High Speed"}
+                new TrainModel{Id = Utility.ToGuid(1), TrainName = "Express 1",TrainType="High Speed"},
+                new TrainModel{Id = Utility.ToGuid(2), TrainName = "Krasnaya Strela", TrainType="Branded Train"}
             };
         }
         public static List<TicketModel> GetTicketData()
         {
             return new List<TicketModel>
             {
-
+                new TicketModel
+                {
+                    Id = Utility.ToGuid(1),
+                    RouteId = Utility.ToGuid(1),
+                    DateId = Utility.ToGuid(1),
+                    TrainId = Utility.ToGuid(1),
+                    PlaceId = Utility.ToGuid(1),
+                    Cost = 1500.50f
+                },
+                new TicketModel
+                {
+                    Id = Utility.ToGuid(2),
+                    RouteId = Utility.ToGuid(1),
+                    DateId = Utility.ToGuid(1),
+                    TrainId = Utility.ToGuid(1),
+                    PlaceId = Utility.ToGuid(2),
+                    Cost = 1200.75f
+                },
+                new TicketModel
+                {
+                    Id = Utility.ToGuid(3),
+                    RouteId = Utility.ToGuid(1),
+                    DateId = Utility.ToGuid(3),
+                    TrainId = Utility.ToGuid(1),
+                    PlaceId = Utility.ToGuid(2),
+                    Cost = 1800.00f
+                }
             };
         }
         public static List<RouteModel> GetRouteData()
         {
             return new List<RouteModel>
             {
-                new RouteModel { Id=Utility.ToGuid(1),PointStart="Moscow",PointEnd="Saint Petersburg"}
+                new RouteModel { Id=Utility.ToGuid(1), PointStart="Moscow", PointEnd="Saint Petersburg"},
+                new RouteModel { Id=Utility.ToGuid(2), PointStart = "Perm", PointEnd="Ekaterinburg"}
             };
         }
         public static List<DateModel> GetDateData()

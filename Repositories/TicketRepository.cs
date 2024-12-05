@@ -15,6 +15,7 @@ namespace TrainSystem.Repositories
 		public Guid TrainId { get; set; }
 		public Guid DateId { get; set; }
 		public Guid RouteId { get; set; }
+        public IEnumerable<Guid> TicketsId { get; set; }
 	}
 	public class TicketRepository : ITicketRepository
     {
@@ -81,13 +82,15 @@ namespace TrainSystem.Repositories
                 .Join(_places.GetSet(), t => t.PlaceId, p => p.Id, (t, p) => new WagonInfo {TicketId=t.Id, PlaceId=t.PlaceId, WagonId=p.WagonId});
             return tickets.GroupBy(t => t.WagonId);
         }
-        public IQueryable<IGrouping<TicketInfo, TicketModel>> GroupingTicketsByTrain(DateTime DateStart, String PointStart, String PointEnd)
+        public IQueryable<TicketInfo> GroupingTicketsByTrain(DateTime DateStart, String PointStart, String PointEnd)
         {
 			var route = _routes.Where(r => r.PointStart == PointStart && r.PointEnd == PointEnd);
 			var dates = _dates.Where(d => d.DateStart == DateStart);
             var tickets = _tickets
                 .Where(t => route.Any(r => r.Id == t.RouteId) && dates.Any(d => d.Id == t.DateId))
-                .GroupBy(t => new TicketInfo {TrainId=t.TrainId, DateId=t.DateId, RouteId=t.RouteId});
+                .GroupBy(t => new {t.TrainId, t.DateId, t.RouteId})
+                .Select(g => new TicketInfo {TrainId=g.Key.TrainId, DateId=g.Key.DateId, RouteId=g.Key.RouteId,
+                    TicketsId=g.Select(t => t.Id)});
             return tickets;
 		}
 	}
