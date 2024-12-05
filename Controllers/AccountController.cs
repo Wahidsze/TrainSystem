@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TrainSystem.Database;
+
 using TrainSystem.Models.ModelViews;
 using TrainSystem.Services;
 
@@ -10,12 +10,10 @@ namespace TrainSystem.Controllers
 {
     public class AccountController : Controller
     {
-        private ApplicationContext _context { get; set; }
         private IUserService _service { get; set; }
-        public AccountController(ApplicationContext context) 
+        public AccountController(IUserService service) 
         {
-            _context = context;
-            _service = new UserService(_context);
+            _service = service;
         }
         [HttpGet]
         public IActionResult Login()
@@ -61,7 +59,9 @@ namespace TrainSystem.Controllers
         }
         private async Task Authenticate(ClaimsIdentity id)
         {
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, 
+                new ClaimsPrincipal(id));
         }
     }
 }

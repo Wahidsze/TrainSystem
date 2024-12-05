@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using TrainSystem.Repositories;
 using TrainSystem.Database;
+using TrainSystem.Services;
 
 namespace TrainSystem
 {
@@ -23,7 +25,9 @@ namespace TrainSystem
                 {
                     options.LoginPath = new PathString("/Account/Login");
                 });
-            services.AddMvc();
+            services.AddTransient<ITicketService, TicketService>();
+			services.AddTransient<IUserService, UserService>();
+			services.AddMvc();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
