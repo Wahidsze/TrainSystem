@@ -40,7 +40,7 @@ namespace TrainSystem.Services
             List<WagonViewModel> result = new List<WagonViewModel>();
             foreach (var wagon in wagons)
             {
-                result.Append(_builder
+                result.Add(_builder
                     .SetNameAndType(wagon.Key)
                     .SetPlace(wagon.Select(w => new PlaceAndTicketId {TicketId=w.TicketId, PlaceId=w.PlaceId}).ToList())
                     .SetConditions(wagon.Key)

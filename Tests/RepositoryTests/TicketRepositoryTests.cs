@@ -38,10 +38,7 @@ namespace TrainSystem.Tests.RepositoryTests
         public void GetConditionsByIdTest()
         {
             var conditions = _repository.GetConditionsById(Utility.ToGuid(1));
-            var target = new List<Condition>
-            {
-                Condition.BioToilet,Condition.Conditioner,Condition.AllowPets
-            };
+            var target = new List<Condition>{Condition.BioToilet, Condition.Conditioner, Condition.AllowPets};
             Assert.Equal(conditions, target);
         }
         [Fact]

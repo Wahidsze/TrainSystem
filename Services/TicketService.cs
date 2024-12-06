@@ -24,11 +24,11 @@ namespace TrainSystem.Services
             List<TicketViewModel> result = new List<TicketViewModel>();
             foreach (var ticket in tickets)
             {
-                result.Append(_builder
-                    .SetDate(ticket.Key.DateId)
-                    .SetRoute(ticket.Key.RouteId)
-                    .SetTrain(ticket.Key.TrainId)
-                    .SetWagons(ticket.Select(t =>t.Id).ToList())
+                result.Add(_builder
+                    .SetDate(ticket.DateId)
+                    .SetRoute(ticket.RouteId)
+                    .SetTrain(ticket.TrainId)
+                    .SetWagons(ticket.TicketsId.ToList())
                     .Build());
             }
             return result;
