@@ -1,0 +1,27 @@
+﻿@model TrainSystem.Models.ModelViews.InputViewModel
+
+<h2>Найти билет</h2>
+
+<form asp-action="Input" asp-controller="Home">
+    <div>
+        <div class="form-group">
+            <label asp-for="PointStart">Откуда</label>
+            <input type="text" asp-for="PointStart" />
+            <span asp-validation-for="PointStart" />
+        </div>
+        <div class="form-group">
+            <label asp-for="PointEnd">Куда</label>
+            <input type="text" asp-for="PointEnd" />
+            <span asp-validation-for="PointEnd" />
+        </div>
+        <div class="form-group">
+            <label asp-for="DateStart">Когда</label>
+            <input asp-for="DateStart" />
+            <span asp-validation-for="DateStart" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Найти" class="btn btn-outline-dark" />
+        </div>
+    </div>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+</form>

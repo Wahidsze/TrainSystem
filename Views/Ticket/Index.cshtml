@@ -1,0 +1,22 @@
+﻿@using Newtonsoft.Json;
+@model IEnumerable<TrainSystem.Models.ModelViews.TicketViewModel>
+
+<h2>Список билетов</h2>
+
+@foreach (var ticket in Model)
+{
+    <div>
+        <a asp-action="Index" asp-controller="Home">Назад</a>
+        <p><strong>Поезд:</strong> @ticket.TrainName</p>
+        <p><strong>Тип поезда:</strong> @ticket.TrainType</p>
+        <p><strong>Точки маршрута:</strong> @ticket.PointStart - @ticket.PointEnd</p>
+        <p><strong>Дата начала:</strong> @ticket.DateStart</p>
+        <p><strong>Дата окончания:</strong> @ticket.DateEnd</p>
+
+        <form asp-action="Index" asp-controller="Ticket" method="post">
+            @Html.Hidden("selectTicket", JsonConvert.SerializeObject(ticket))
+            <button type="submit">Выбрать билет</button>
+        </form>
+    </div>
+}
+

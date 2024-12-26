@@ -1,0 +1,27 @@
+﻿@using TrainSystem.Models.ModelDatabase;
+@{
+    var conditionsDictionary = new Dictionary<Condition, string>
+    {
+        { Condition.BioToilet, "Био-туалет" },
+        { Condition.AllowPets, "Проезд с животными" },
+        { Condition.Conditioner, "Кондиционер" }
+    };
+}
+
+@model IEnumerable<TrainSystem.Models.ModelViews.WagonViewModel>
+
+<h2>Вагоны</h2>
+
+<div>
+	<a asp-action="Index" asp-controller="Ticket">Назад</a>
+	@foreach (var wagon in Model)
+	{
+		<div>
+			<p>@wagon.WagonType</p>
+        @foreach (var condition in wagon.WagonConditions)
+        {
+                 <p>@conditionsDictionary[condition]</p>
+        }
+		</div>
+	}
+</div>

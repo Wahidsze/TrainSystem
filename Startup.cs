@@ -27,6 +27,7 @@ namespace TrainSystem
                 });
             services.AddTransient<ITicketService, TicketService>();
 			services.AddTransient<IUserService, UserService>();
+            services.AddSession();
 			services.AddMvc();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,8 +42,8 @@ namespace TrainSystem
             app.UseRouting();
 
             app.UseAuthentication();    
-            app.UseAuthorization();     
-
+            app.UseAuthorization();
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

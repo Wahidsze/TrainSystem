@@ -18,7 +18,7 @@ namespace TrainSystem.Repositories
 		}
         public DbModel GetById(Guid Id)
 		{
-			return _context.Set<DbModel>().FirstOrDefault(t => t.Id == Id, null);
+			return _context.Set<DbModel>().FirstOrDefault(t => t.Id == Id)??null;
 		}
         public async Task<DbModel> GetByAttribute(Expression<Func<DbModel, bool>> predicate)
         {
